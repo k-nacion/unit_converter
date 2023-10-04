@@ -24,6 +24,9 @@ class _HomePageState extends State<HomePage> {
   String? _fromDropdownValue;
   String? _toDropdownValue;
 
+  TextStyle? get $titleTextStyle =>
+      Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.grey[600]);
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 const SizedBox(height: 12),
-                Text('Value', style: Theme.of(context).textTheme.headlineMedium),
+                Text('Value', style: $titleTextStyle),
                 const SizedBox(height: 12),
                 TextField(
                   decoration: const InputDecoration(
@@ -67,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 const SizedBox(height: 12),
-                Text('From', style: Theme.of(context).textTheme.headlineMedium),
+                Text('From', style: $titleTextStyle),
                 const SizedBox(height: 12),
                 DropdownMenu<String>(
                     initialSelection: _fromDropdownValue,
@@ -75,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       return DropdownMenuEntry<String>(value: e, label: e);
                     }).toList()),
                 const SizedBox(height: 12),
-                Text('To', style: Theme.of(context).textTheme.headlineMedium),
+                Text('To', style: $titleTextStyle),
                 const SizedBox(height: 12),
                 DropdownMenu<String>(
                     initialSelection: _toDropdownValue,
