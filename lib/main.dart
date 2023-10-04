@@ -11,7 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unit Converter',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFecc986))),
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFecc986)),
+        useMaterial3: true,
+      ),
       home: const HomePage(),
     );
   }
