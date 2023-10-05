@@ -57,6 +57,15 @@ class _HomePageState extends State<HomePage> {
     return value! * multiplier;
   }
 
+  void processConvert() {
+    final double? value = double.tryParse(_textInput.text);
+    final numberFormatter = NumberFormat('#.############', 'en-us');
+    final convertedValue = convert(value: value, from: _fromDropdownValue, to: _toDropdownValue);
+    setState(() {
+      _textOutput = numberFormatter.format(convertedValue);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -89,22 +98,13 @@ class _HomePageState extends State<HomePage> {
                     border: OutlineInputBorder(),
                     hintText: 'Please insert the measure to be...',
                   ),
-                  /*onChanged: (value) {
-                    final rv = double.tryParse(value);
-                    final numberFormatter = NumberFormat('#.#', 'en-us');
-
-                    if (rv != null) {
-                      setState(() {
-                        _textOutput = numberFormatter.format(rv);
-                      });
-                    }
-                  },*/
                 ),
                 const SizedBox(height: 12),
                 Text('From', style: $titleTextStyle),
                 const SizedBox(height: 12),
                 DropdownMenu<String>(
                     initialSelection: _fromDropdownValue,
+                    onSelected: (value) => _fromDropdownValue = value!,
                     dropdownMenuEntries: _measures.map((e) {
                       return DropdownMenuEntry<String>(value: e, label: e);
                     }).toList()),
@@ -112,6 +112,7 @@ class _HomePageState extends State<HomePage> {
                 Text('To', style: $titleTextStyle),
                 const SizedBox(height: 12),
                 DropdownMenu<String>(
+                  onSelected: (value) => _toDropdownValue = value!,
                   menuStyle: MenuStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                     minimumSize: const MaterialStatePropertyAll<Size>(Size.infinite),
@@ -146,14 +147,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  void processConvert() {
-    final double? value = double.tryParse(_textInput.text);
-    final numberFormatter = NumberFormat('#.############', 'en-us');
-    final convertedValue = convert(value: value, from: _fromDropdownValue, to: _toDropdownValue);
-    setState(() {
-      _textOutput = numberFormatter.format(convertedValue);
-    });
   }
 }
